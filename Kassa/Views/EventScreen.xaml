@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kassa.Views.EventScreen"
+             xmlns:viewmodels="clr-namespace:Kassa.ViewModels"
+             xmlns:models="clr-namespace:Kassa.Models"
+             x:DataType="viewmodels:EventScreenViewModel"
+             x:Name="eventPage"
+             Title="EventScreen">
+    <ScrollView>
+
+        <Grid BackgroundColor="#444BA4"
+              ColumnDefinitions="*"
+              RowDefinitions="Auto,Auto,Auto">
+
+            <Picker ItemsSource="{Binding Communities}"
+                    SelectedItem="{Binding SelectedCommunity, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding Naam}"
+                    Title="Selecteer een community"
+                    BackgroundColor="#2B3078"
+                    SelectedIndex="0"
+                    Grid.Row="1"
+                    HeightRequest="100"
+                    WidthRequest="200" />
+
+            <Frame Padding="10"
+                   CornerRadius="10"
+                   BackgroundColor="#2B3078"
+                   Margin="20"
+                   Grid.Row="2"
+                   BorderColor="Transparent"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center">
+                <CollectionView ItemsSource="{Binding Events}"
+                                ItemsLayout="VerticalStackLayout"
+                                Margin="20"
+                                SelectionMode="Single"
+                                SelectedItem="{Binding SelectedEvent}">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Frame BackgroundColor="#2B3078"
+                                   BorderColor="Transparent">
+                                <Border Stroke="#444BA4"
+                                        StrokeThickness="2"
+                                        Margin="5">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <VerticalStackLayout>
+                                        <!-- Event details -->
+                                        <Label Text="{Binding Naam}"
+                                               FontAttributes="Bold"
+                                               Margin="15" />
+                                        <HorizontalStackLayout Margin="15">
+                                            <Label Text="Beschrijving:"
+                                                   FontAttributes="Bold"
+                                                   Margin="0,0,10,0" />
+                                            <Label Text="{Binding Beschrijving}"
+                                                   Margin="0,0,10,0"
+                                                   LineBreakMode="WordWrap" />
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Margin="15">
+                                            <Label Text="Prijs:"
+                                                   FontAttributes="Bold"
+                                                   Margin="0,0,10,0" />
+                                            <Label Text="{Binding Kosten, StringFormat='€{0:F2}'}"
+                                                   Margin="0,0,10,0" />
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Margin="10">
+                                            <Label Text=" Start Datum:"
+                                                   FontAttributes="Bold"
+                                                   Margin="0,0,10,0" />
+                                            <Label Text="{Binding DatumStart, StringFormat='{0:dd/MM/yyyy}'}" />
+                                        </HorizontalStackLayout>
+
+                                        <HorizontalStackLayout Margin="10">
+                                            <Label Text=" Eind Datum:"
+                                                   Margin="0,0,10,0"
+                                                   FontAttributes="Bold" />
+                                            <Label Text="{Binding DatumEinde, StringFormat='{0:dd/MM/yyyy}'}" />
+                                        </HorizontalStackLayout>
+
+                                        <HorizontalStackLayout Margin="10">
+                                            <Label Text=" Aantal spelers:"
+                                                   FontAttributes="Bold" />
+                                            <Label Text="{Binding AantalDeelnemers}"
+                                                   Margin="5,0,0,0" />
+                                            <Label Text="/" />
+                                            <Label Text="{Binding MaxDeelnemers}" />
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Spacing="10">
+                                            <Button Text="Join Event"
+                                                    BackgroundColor="#42CA49"
+                                                    WidthRequest="200"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:EventScreenViewModel}}, Path=JoinEventCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    IsVisible="{Binding IsJoinButtonVisible}"
+                                                    Grid.Row="0"
+                                                    ZIndex="10"
+                                                    Margin="15" />
+
+                                            <Button Text="Leave Event"
+                                                    BackgroundColor="Red"
+                                                    WidthRequest="200"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:EventScreenViewModel}}, Path=LeaveEventCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    IsVisible="{Binding IsLeaveButtonVisible}"
+                                                    Grid.Row="0"
+                                                    ZIndex="10"
+                                                    Margin="15" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
+            <HorizontalStackLayout Grid.Row="0">
+                <Button Text="Voeg event toe"
+                        Margin="20,20,20,20"
+                        HeightRequest="50"
+                        WidthRequest="200"
+                        FontAttributes="Bold"
+                        Command="{Binding CreateEventCommand}"
+                        IsVisible="{Binding IsNotKelner}" />
+                <Button Text="Delete geselecteerde event"
+                        FontAttributes="Bold"
+                        HeightRequest="50"
+                        Margin="0,20,20,20"
+                        BackgroundColor="#ff0000"
+                        Command="{Binding DeleteEventCommand}"
+                        IsVisible="{Binding IsNotKelner}" />
+                <Button Text="Wijzig"
+                        BackgroundColor="#d7e231"
+                        FontAttributes="Bold"
+                        WidthRequest="200"
+                        HeightRequest="50"
+                        Margin="0,20,20,20"
+                        Command="{Binding UpdateEventCommand }"
+                        IsVisible="{Binding IsNotKelner}" />
+                <Button Text="Voeg een community toe"
+                        BackgroundColor="#e100ff"
+                        FontAttributes="Bold"
+                        WidthRequest="200"
+                        HeightRequest="50"
+                        Margin="0,20,20,20"
+                        Command="{Binding CreateCommunityCommand }"
+                        IsVisible="{Binding IsNotKelner}" />
+                <Button Text="Delete community"
+                        FontAttributes="Bold"
+                        HeightRequest="50"
+                        Margin="0,20,20,20"
+                        BackgroundColor="#ff0000"
+                        Command="{Binding DeleteCommunityCommand}"
+                        IsVisible="{Binding IsNotKelner}" />
+            </HorizontalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

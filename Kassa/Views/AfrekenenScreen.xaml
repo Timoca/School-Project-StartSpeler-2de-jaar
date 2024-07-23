@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kassa.Views.AfrekenenScreen"
+             xmlns:viewmodels="clr-namespace:Kassa.ViewModels"
+             xmlns:models="clr-namespace:Kassa.Models"
+             x:DataType="viewmodels:AfrekenenScreenViewModel"
+             Title="AfrekenenScreen">
+    
+    <ScrollView BackgroundColor="#444BA4">
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" MaximumWidthRequest="700">
+            <Frame Padding="20" >
+
+                <Grid RowDefinitions="*,*,*,*"
+              ColumnDefinitions="*"
+              BackgroundColor="#2B3078">
+                    <!--Start Titel Region-->
+                    <VerticalStackLayout Grid.Row="0"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Center">
+                        <Label Text="Afrekenen"
+                       FontSize="35"
+                       TextColor="White" />
+                    </VerticalStackLayout>
+                    <!--End Titel Region-->
+
+                    <Button Text="Terug"
+                    Command="{Binding TerugCommand}"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Start"
+                    Margin="10" />
+
+                    <VerticalStackLayout Grid.Row="1"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 >
+                        <!--Start Naam Klant Region-->
+                        <Label Text="{Binding KlantNaam}"
+                       FontSize="30"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       Padding="0,10,0,20" />
+                        <!--End Naam Klant Region-->
+
+                        <!--Start Producten Region-->
+                        <CollectionView ItemsSource="{Binding BesteldeProducten}"
+                                        SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:BesteldProduct">
+                                    <Grid ColumnDefinitions="*,Auto,Auto"
+                                          RowDefinitions="*"
+                                          Padding="5">
+                                        <Label Text="{Binding Product.Naam}"
+                                               FontSize="20"
+                                               TextColor="White"
+                                               HorizontalOptions="Start" />
+                                        <Label Text="{Binding Aantal}"
+                                               FontSize="20"
+                                               TextColor="White"
+                                               HorizontalOptions="Center" />
+                                        <Label Text="{Binding Product.Prijs, StringFormat='€{0:F2}'}"
+                                               FontSize="20"
+                                               TextColor="White"
+                                               HorizontalOptions="End" />
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <!--End Producten Region-->
+
+                        <!--Buttons en Totaalprijs-->
+                        <Grid ColumnDefinitions="*,*"
+                      RowDefinitions="*"
+                      Margin="20,20,20,0">
+                            <Button Text="Betaald"
+                            BackgroundColor="#42CA49"
+                            FontAttributes="Bold"
+                            Command="{Binding BetaaldCommand}"
+                            Margin="5" />
+                            <Label Text="{Binding TotaalPrijs, StringFormat='Totaalprijs : €{0:F2}'}"
+                           HorizontalOptions="End"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           Margin="5,0,0,0"
+                           Grid.Column="2" />
+                        </Grid>
+                        <!--End Buttons en Totaalprijs-->
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

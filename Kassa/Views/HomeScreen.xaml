@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Kassa.ViewModels"
+             x:Class="Kassa.Views.HomeScreen"
+             x:DataType="viewmodels:HomeScreenViewModel"
+             Shell.TabBarIsVisible="False">
+
+    <ScrollView>
+        <Grid RowDefinitions="*,*,*"
+              ColumnDefinitions="*,*,*"
+              BackgroundColor="#444BA4">
+            <Button Text="Stock"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="#42CA49"
+                    Command="{Binding GoToStockScreenCommand}"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    HeightRequest="75"
+                    WidthRequest="200" />
+            <Button Text="Overzicht"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="#42CA49"
+                    Command="{Binding GoToOverzichtScreenCommand}"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    HeightRequest="75"
+                    WidthRequest="200" />
+            <Button Text="Menu"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    BackgroundColor="#42CA49"
+                    Command="{Binding GoToMenuScreenCommand}"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    HeightRequest="75"
+                    WidthRequest="200" />
+            <Button Text="Events"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    BackgroundColor="#42CA49"
+                    Command="{Binding GoToEventScreenCommand}"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    HeightRequest="75"
+                    WidthRequest="200" />
+            <Button Text="Instellingen"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    BackgroundColor="#42CA49"
+                    Command="{Binding GoToInstellingenScreenCommand}"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    HeightRequest="75"
+                    WidthRequest="200"
+                    IsVisible="{Binding IsBeheerder}" />
+        </Grid>
+    </ScrollView>
+</ContentPage>

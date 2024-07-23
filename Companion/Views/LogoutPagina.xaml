@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Companion.Views.LogoutPagina"
+             BackgroundColor="#3b4082"
+             Title="LogoutPagina"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout
+        VerticalOptions="CenterAndExpand"
+        HorizontalOptions="FillAndExpand">
+        <Label
+            Text="U wordt uitgelogd..."
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            VerticalTextAlignment="Center" />
+    </VerticalStackLayout>
+</ContentPage>

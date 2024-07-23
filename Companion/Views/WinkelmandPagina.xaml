@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Companion.Views.WinkelmandPagina"
+             xmlns:vm="clr-namespace:Companion.ViewModels"
+             xmlns:model="clr-namespace:Companion.Models"
+             x:DataType="vm:WinkelmandViewModel"
+             Title="Winkelmand"
+             BackgroundColor="#3b4082"
+             Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <!-- Grid Row Definitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Header -->
+            <RowDefinition Height="*" />
+            <!-- Main Content -->
+            <RowDefinition Height="Auto" />
+            <!-- Footer/Checkout Button -->
+        </Grid.RowDefinitions>
+
+        <!-- Header with logo and title -->
+        <Grid BackgroundColor="#2B3078"
+              HeightRequest="100"
+              Padding="10"
+              Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Hamburger menu icon -->
+            <Image Source="hamburger.png"
+                   HeightRequest="40"
+                   WidthRequest="40"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   Grid.Column="0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHamburgerMenuTapped" />
+                </Image.GestureRecognizers>
+            </Image>
+
+            <!-- Logo image -->
+            <Image Grid.Column="1"
+                   Source="logo.png"
+                   HeightRequest="100"
+                   WidthRequest="300"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <!-- Main content area for the ListView -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding BesteldeProducten}"
+                        Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:BesteldProduct">
+                    <Frame CornerRadius="10" Padding="10" BackgroundColor="#2B3078" Margin="1" HeightRequest="45" BorderColor="#444BA5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Product.Naam}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium" TextColor="White" />
+                            <Label Text="{Binding Aantal, StringFormat='Aantal: {0}'}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="Medium" TextColor="White" />
+                            <Label Text="{Binding Product.Prijs, StringFormat='€{0:N2}'}" VerticalOptions="Center" HorizontalOptions="End" FontSize="Medium" TextColor="White" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Checkout buttons at the bottom -->
+        <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Margin="5">
+            <Button Text="Leeg Winkelmand"
+                    HeightRequest="50"
+                    WidthRequest="180"
+                    BackgroundColor="#FF0000"
+                    Command="{Binding LeegWinkelmandCommand}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Margin="5" />
+            <Button Text="Bestellen"
+                    HeightRequest="50"
+                    WidthRequest="180"
+                    BackgroundColor="#42CA49"
+                    Command="{Binding BestellenCommand}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Margin="5" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

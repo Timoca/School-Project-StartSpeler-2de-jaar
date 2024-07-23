@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kassa.Views.StockScreen"
+             xmlns:viewmodels="clr-namespace:Kassa.ViewModels"
+             xmlns:models="clr-namespace:Kassa.Models"
+             x:DataType="viewmodels:StockScreenViewModel"
+             Title="StockScreen">
+    <ScrollView>
+        <Grid RowDefinitions="auto,auto,auto,auto"
+              ColumnDefinitions="*,*,*"
+              BackgroundColor="#444BA4">
+            <!--Start Titel Region-->
+            <VerticalStackLayout Grid.Row="0"
+                                 Grid.ColumnSpan="3"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Center">
+                <Label Text="Stock"
+                       FontSize="35"
+                       Margin="20" />
+            </VerticalStackLayout>
+            <!--End Titel Region-->
+
+            <!--Start Alcoholische Dranken Region-->
+            <Frame BackgroundColor="#2B3078"
+                   HeightRequest="350"
+                   BorderColor="Transparent"
+                   WidthRequest="400"
+                   Margin="20"
+                   Grid.Row="1"
+                   Grid.Column="0">
+                <ScrollView>
+                    <VerticalStackLayout>
+                        <Label Text="Alcoholische Dranken"
+                               FontSize="30"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,20" />
+                        <CollectionView ItemsSource="{Binding AlcoholischeDrank}"
+                                        Margin="20">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Product">
+                                    <StackLayout Margin="5">
+                                        <Border Stroke="#444BA4"
+                                                StrokeThickness="2"
+                                                Margin="2">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="5" />
+                                            </Border.StrokeShape>
+                                            <Grid ColumnDefinitions="*,*"
+                                                  RowDefinitions="*">
+                                                <Label Text="{Binding Naam}"
+                                                       Grid.Column="0"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       Margin="10" />
+                                                <HorizontalStackLayout Grid.Column="1"
+                                                                       VerticalOptions="Center"
+                                                                       HorizontalOptions="End">
+                                                    <Label Text="{Binding StockAantal,StringFormat='{0} stuks '}"
+                                                           VerticalOptions="Center"
+                                                           Margin="10" />
+                                                </HorizontalStackLayout>
+                                            </Grid>
+                                        </Border>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Frame>
+            <!--End Alcoholische Dranken Region-->
+
+            <!--Start Non-Alcoholische Dranken Region-->
+            <Frame BackgroundColor="#2B3078"
+                   HeightRequest="350"
+                   BorderColor="Transparent"
+                   WidthRequest="400"
+                   Margin="20"
+                   Grid.Row="1"
+                   Grid.Column="1">
+                <ScrollView>
+                    <VerticalStackLayout>
+                        <Label Text="Non-Alcoholische Dranken"
+                               FontSize="30"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,20" />
+                        <CollectionView ItemsSource="{Binding NonAlcoholischeDrank}"
+                                        Margin="20">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Product">
+                                    <StackLayout Margin="5">
+                                        <Border Stroke="#444BA4"
+                                                StrokeThickness="2"
+                                                Margin="2">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="5" />
+                                            </Border.StrokeShape>
+                                            <Grid ColumnDefinitions="*,*"
+                                                  RowDefinitions="*">
+                                                <Label Text="{Binding Naam}"
+                                                       Grid.Column="0"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       Margin="10" />
+                                                <HorizontalStackLayout Grid.Column="1"
+                                                                       VerticalOptions="Center"
+                                                                       HorizontalOptions="End">
+                                                    <Label Text="{Binding StockAantal,StringFormat='{0} stuks '}"
+                                                           VerticalOptions="Center"
+                                                           Margin="10" />
+                                                </HorizontalStackLayout>
+                                            </Grid>
+                                        </Border>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Frame>
+            <!--End Non-Alcoholische Dranken Region-->
+
+            <!--Start Frisdranken Region-->
+            <Frame BackgroundColor="#2B3078"
+                   HeightRequest="350"
+                   BorderColor="Transparent"
+                   WidthRequest="400"
+                   Margin="20"
+                   Grid.Row="1"
+                   Grid.Column="2">
+                <ScrollView>
+                    <VerticalStackLayout>
+                        <Label Text="Frisdranken"
+                               FontSize="30"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,20" />
+                        <CollectionView ItemsSource="{Binding Frisdrank}"
+                                        Margin="20">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Product">
+                                    <StackLayout Margin="5">
+                                        <Border Stroke="#444BA4"
+                                                StrokeThickness="2"
+                                                Margin="2">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="5" />
+                                            </Border.StrokeShape>
+                                            <Grid ColumnDefinitions="*,*"
+                                                  RowDefinitions="*">
+                                                <Label Text="{Binding Naam}"
+                                                       Grid.Column="0"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       Margin="10" />
+                                                <HorizontalStackLayout Grid.Column="1"
+                                                                       VerticalOptions="Center"
+                                                                       HorizontalOptions="End">
+                                                    <Label Text="{Binding StockAantal,StringFormat='{0} stuks '}"
+                                                           VerticalOptions="Center"
+                                                           Margin="10" />
+                                                </HorizontalStackLayout>
+                                            </Grid>
+                                        </Border>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Frame>
+            <!--End Frisdranken Region-->
+
+            <!--Start Warme Dranken Region-->
+            <Frame BackgroundColor="#2B3078"
+                   HeightRequest="350"
+                   BorderColor="Transparent"
+                   WidthRequest="400"
+                   Margin="20"
+                   Grid.Row="2"
+                   Grid.Column="0">
+                <ScrollView>
+                    <VerticalStackLayout>
+                        <Label Text="Warme Dranken"
+                               FontSize="30"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,20" />
+                        <CollectionView ItemsSource="{Binding Warmedrank}"
+                                        Margin="20">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Product">
+                                    <StackLayout Margin="5">
+                                        <Border Stroke="#444BA4"
+                                                StrokeThickness="2"
+                                                Margin="2">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="5" />
+                                            </Border.StrokeShape>
+                                            <Grid ColumnDefinitions="*,*"
+                                                  RowDefinitions="*">
+                                                <Label Text="{Binding Naam}"
+                                                       Grid.Column="0"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       Margin="10" />
+                                                <HorizontalStackLayout Grid.Column="1"
+                                                                       VerticalOptions="Center"
+                                                                       HorizontalOptions="End">
+                                                    <Label Text="{Binding StockAantal,StringFormat='{0} stuks '}"
+                                                           VerticalOptions="Center"
+                                                           Margin="10" />
+                                                </HorizontalStackLayout>
+                                            </Grid>
+                                        </Border>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Frame>
+            <!--End Warme Dranken Region-->
+
+            <!--Start Snacks Region-->
+            <Frame BackgroundColor="#2B3078"
+                   HeightRequest="350"
+                   BorderColor="Transparent"
+                   WidthRequest="400"
+                   Margin="20"
+                   Grid.Row="2"
+                   Grid.Column="1">
+                <ScrollView>
+                    <VerticalStackLayout>
+                        <Label Text="Snacks"
+                               FontSize="30"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,20" />
+                        <CollectionView ItemsSource="{Binding Snack}"
+                                        Margin="20">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Product">
+                                    <StackLayout Margin="5">
+                                        <Border Stroke="#444BA4"
+                                                StrokeThickness="2"
+                                                Margin="2">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="5" />
+                                            </Border.StrokeShape>
+                                            <Grid ColumnDefinitions="*,*"
+                                                  RowDefinitions="*">
+                                                <Label Text="{Binding Naam}"
+                                                       Grid.Column="0"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       Margin="10" />
+                                                <HorizontalStackLayout Grid.Column="1"
+                                                                       VerticalOptions="Center"
+                                                                       HorizontalOptions="End">
+                                                    <Label Text="{Binding StockAantal,StringFormat='{0} stuks '}"
+                                                           VerticalOptions="Center"
+                                                           Margin="10" />
+                                                </HorizontalStackLayout>
+                                            </Grid>
+                                        </Border>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Frame>
+            <!--End Snacks Region-->
+
+            <!--Start Afrekenen Button Region-->
+            <Button Text="Stock Wijzigen"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    WidthRequest="150"
+                    VerticalOptions="Center"
+                    BackgroundColor="#d7e231"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="3"
+                    Margin="20"
+                    Command="{Binding GoToProductScreenCommand}"
+                    IsVisible="{Binding IsNotEventManager}" />
+            <!--End Afrekenen Button Region-->
+        </Grid>
+    </ScrollView>
+</ContentPage>

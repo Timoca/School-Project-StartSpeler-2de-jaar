@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kassa.Views.OverzichtScreen"
+             xmlns:viewmodels="clr-namespace:Kassa.ViewModels"
+             xmlns:models="clr-namespace:Kassa.Models"
+             x:DataType="viewmodels:OverzichtScreenViewModel"
+             Title="OverzichtScreen"
+             x:Name="overzichtScreen">
+
+    <Grid RowDefinitions="auto,auto,auto"
+          ColumnDefinitions="*,*,*,*"
+          BackgroundColor="#444BA4">
+        <Frame Grid.Row="0"
+               Grid.ColumnSpan="4"
+               BackgroundColor="#2B3078"
+               BorderColor="Transparent"
+               Margin="20"
+               HeightRequest="650">
+            <ScrollView>
+                <VerticalStackLayout>
+                    <Grid ColumnDefinitions="*,*,*,*,*"
+                          RowDefinitions="*">
+                        <Label Text="Naam"
+                               FontSize="Medium"
+                               Margin="15"
+                               Grid.Column="0"
+                               Grid.Row="1" />
+                        <Label Text="Bestelling"
+                               FontSize="Medium"
+                               Margin="0,20,20,20"
+                               Grid.Column="1"
+                               Grid.Row="1" />
+                        <Label Text="Status"
+                               FontSize="Medium"
+                               Margin="20"
+                               Grid.Column="2"
+                               Grid.Row="1" />
+                        <Label Text="Tafelnummer"
+                               FontSize="Medium"
+                               Margin="20"
+                               Grid.Column="3"
+                               Grid.Row="1" />
+                        <Label Text="Openstaand Saldo"
+                               FontSize="Medium"
+                               Margin="80,20,20,20"
+                               Grid.Column="4"
+                               Grid.Row="1" />
+                    </Grid>
+                    <VerticalStackLayout>
+                        <CollectionView ItemsSource="{Binding Bestelling}"
+                                        SelectionMode="Single"
+                                        SelectedItem="{Binding HuidigeBestelling}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+
+                                    <StackLayout>
+                                        <Border Stroke="#444BA4"
+                                                StrokeThickness="2"
+                                                Margin="2">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="5" />
+                                            </Border.StrokeShape>
+                                            <Grid RowDefinitions="*"
+                                                  ColumnDefinitions="*,*,*,*,*">
+                                                <Label Text="{Binding VolledigeNaam, Source={RelativeSource AncestorType={x:Type models:Bestelling}}}"
+                                                       Grid.Column="0"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       Margin="20,0,0,0" />
+
+                                                <CollectionView ItemsSource="{Binding BesteldeProducten}"
+                                                                Grid.Column="1"
+                                                                VerticalOptions="Center">
+                                                    <CollectionView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <VerticalStackLayout>
+                                                                <HorizontalStackLayout>
+                                                                    <Label Text="{Binding Aantal}" HeightRequest="30" VerticalOptions="Center" Margin="0,0,5,0" />
+                                                                    <Label Text="{Binding Naam}" HeightRequest="30" VerticalOptions="Center" />
+                                                                </HorizontalStackLayout>
+                                                            </VerticalStackLayout>
+                                                        </DataTemplate>
+                                                    </CollectionView.ItemTemplate>
+                                                </CollectionView>
+
+                                                <Label Text="{Binding BetaalStatusString}"
+                                                       Grid.Column="2"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       Margin="35,0,0,0" />
+                                                <Label Text="{Binding TafelNummer}"
+                                                       Grid.Column="3"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       Margin="35,0,0,0" />
+                                                <Label Text="{Binding TotaalBedrag, StringFormat='€{0:F2}'}"
+                                                       Grid.Column="4"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       Margin="150,0,0,0" />
+
+                                                <HorizontalStackLayout Grid.Column="3"
+                                                                       HorizontalOptions="End">
+                                                    <ImageButton Source="delete_icon.png"
+                                                                 HeightRequest="20"
+                                                                 BackgroundColor="Transparent"
+                                                                 HorizontalOptions="End"
+                                                                 Grid.Column="3"
+                                                                 Margin="5"
+                                                                 Command="{Binding Source={x:Reference overzichtScreen}, Path=BindingContext.DeleteBestellingCommand }"
+                                                                 CommandParameter="{Binding .}"
+                                                                 IsVisible="{Binding Source={x:Reference overzichtScreen}, Path=BindingContext.IsNotEventManager}" />
+
+                                                    <ImageButton Source="completed_icon.png"
+                                                                 HeightRequest="20"
+                                                                 BackgroundColor="Transparent"
+                                                                 Grid.Column="3"
+                                                                 Margin="5"
+                                                                 Command="{Binding Source={x:Reference overzichtScreen}, Path=BindingContext.SetBetaalStatusCommand }"
+                                                                 CommandParameter="{Binding .}"
+                                                                 IsVisible="{Binding Source={x:Reference overzichtScreen}, Path=BindingContext.IsNotEventManager}" />
+                                                </HorizontalStackLayout>
+                                            </Grid>
+                                        </Border>
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference overzichtScreen}, Path=BindingContext.GoToAfrekenenCommand}" CommandParameter="{Binding .}" />
+                                        </StackLayout.GestureRecognizers>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Frame>
+    </Grid>
+</ContentPage>

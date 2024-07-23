@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Kassa.ViewModels"
+             x:Class="Kassa.Views.InstellingenScreen"
+             x:Name="PageInstance"
+             x:DataType="viewmodels:InstellingenScreenViewModel"
+             Title="InstellingenScreen">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <StackLayout BackgroundColor="#444BA4"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                         AbsoluteLayout.LayoutFlags="All">
+                <Frame  Margin="20">
+                    <VerticalStackLayout Padding="20">
+                        <HorizontalStackLayout Margin="0,20,0,40">
+                            <Entry Placeholder="Zoek op naam, voornaam of email"
+                           Text="{Binding SearchQuery}"
+                           WidthRequest="400" />
+                            <Button Text="Zoek"
+                            Command="{Binding SearchUsersCommand}"
+                            BackgroundColor="#42CA49"
+                            WidthRequest="150"
+                            Margin="20, 0, 0, 0" />
+                        </HorizontalStackLayout>
+                        <Label Text="{Binding SearchMessage}"
+                               FontSize="18"
+                               TextColor="White"
+                               HorizontalOptions="Start"
+                               IsVisible="{Binding SearchMessage}" />
+                        <ListView ItemsSource="{Binding SearchResults}"
+                                  HasUnevenRows="True">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Orientation="Horizontal" Padding="10">
+                                            <Label Text="{Binding Voornaam}" FontSize="18" HorizontalOptions="StartAndExpand" />
+                                            <Label Text="{Binding Achternaam}" FontSize="18" HorizontalOptions="StartAndExpand" />
+                                            <Label Text="{Binding Email}" FontSize="18" HorizontalOptions="StartAndExpand" />
+                                            <Label Text="{Binding RolesAsString, StringFormat='Roles: {0}'}" FontSize="18" HorizontalOptions="StartAndExpand" />
+                                            <Button Text="Wijzig"
+                                                Command="{Binding BindingContext.ShowRoleSelectionCommand, Source={x:Reference PageInstance}}"
+                                                CommandParameter="{Binding Id}"
+                                                BackgroundColor="#d7e231"
+                                                Margin="5" />
+                                            <Button Text="Verwijder"
+                                                Command="{Binding BindingContext.DeleteUserCommand, Source={x:Reference PageInstance}}"
+                                                CommandParameter="{Binding Id}"
+                                                BackgroundColor="#ff0000"
+                                                Margin="5" />
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </VerticalStackLayout>
+                </Frame>
+            </StackLayout>
+
+            <ContentView AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.8, 0.4"
+                         AbsoluteLayout.LayoutFlags="All"
+                         IsVisible="{Binding IsRoleSelectionVisible}">
+                <Frame BackgroundColor="#444BA4"
+                       CornerRadius="20"
+                       BorderColor="#2B3078"
+                       Padding="20">
+                    <StackLayout VerticalOptions="Center">
+                        <Label Text="Select Roles"
+                               FontSize="20"
+                               Margin="0,0,0,10"
+                               HorizontalOptions="Start"
+                               TextColor="White" />
+                        <CollectionView ItemsSource="{Binding AvailableRoles}"
+                                        SelectionMode="Multiple"
+                                        SelectedItems="{Binding SelectedRoles, Mode=TwoWay}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding .}"
+                                           FontSize="18"
+                                           Margin="10, 0, 0, 0"
+                                           VerticalOptions="Center"
+                                           TextColor="White" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Button Text="Save"
+                                Command="{Binding SaveRolesCommand}"
+                                BackgroundColor="#42CA49"
+                                FontAttributes="Bold"
+                                Margin="0,20,0,10" />
+                        <Button Text="Cancel"
+                                Command="{Binding HideRoleSelectionCommand}"
+                                BackgroundColor="#ff0000"
+                                FontAttributes="Bold" />
+                    </StackLayout>
+                </Frame>
+            </ContentView>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

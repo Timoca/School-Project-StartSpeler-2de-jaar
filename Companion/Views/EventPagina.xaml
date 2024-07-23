@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Companion.Views.EventPagina"
+             xmlns:model="clr-namespace:Companion.Models"
+             xmlns:vm="clr-namespace:Companion.ViewModels"
+             x:DataType="vm:EventViewModel"
+             x:Name="eventPage"
+             Title="Events"
+             BackgroundColor="#3b4082"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+            <Grid Padding="10" BackgroundColor="#2B3078" HeightRequest="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0"
+                       Source="hamburger.png"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnHamburgerMenuTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image Grid.Column="1"
+                       Source="logo.png"
+                       Margin="10"
+                       HeightRequest="100"
+                       WidthRequest="300"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center" />
+            </Grid>
+
+            <StackLayout Padding="20">
+                <Picker ItemsSource="{Binding Communities}"
+                        SelectedItem="{Binding SelectedCommunity, Mode=TwoWay}"
+                        ItemDisplayBinding="{Binding Naam}"
+                        Title="Selecteer een community"
+                        TextColor="White"/>
+
+                <CollectionView ItemsSource="{Binding Events}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="10" CornerRadius="10" HasShadow="True" BackgroundColor="#2B3078" Margin="10">
+                                <StackLayout Margin="5">
+                                    <Label Text="{Binding Naam}" FontSize="15" FontAttributes="Bold" HorizontalOptions="Center" TextTransform="Uppercase" />
+
+                                    <Frame BackgroundColor="#3b4082" Margin="0,8" Padding="5">
+                                        <Label Text="{Binding Beschrijving}" />
+                                    </Frame>
+
+                                    <HorizontalStackLayout>
+                                        <Image Source="calendar.png" HeightRequest="20" WidthRequest="20" Margin="0,0,10,0" />
+                                        <Label Text="Datum: " />
+                                        <Label Text="{Binding DatumStart, StringFormat='{0:dd/MM/yyyy}'}" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout>
+                                        <Image Source="calendar.png" HeightRequest="20" WidthRequest="20" Margin="0,0,10,0" />
+                                        <Label Text="EindDatum: " />
+                                        <Label Text="{Binding DatumEinde, StringFormat='{0:dd/MM/yyyy}'}" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout>
+                                        <Image Source="user.png" HeightRequest="20" WidthRequest="20" Margin="0,0,10,0" />
+                                        <Label Text="{Binding AantalDeelnemers}" FontAttributes="Bold" />
+                                        <Label Text="/" />
+                                        <Label Text="{Binding MaxDeelnemers}" FontAttributes="Bold" />
+                                    </HorizontalStackLayout>
+
+                                    <Grid VerticalOptions="Center" HorizontalOptions="Center" Margin="0,10,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Button Text="Join Event"
+                                                BackgroundColor="#42CA49"
+                                                Command="{Binding Source={x:Reference eventPage}, Path=BindingContext.JoinEventCommand}"
+                                                CommandParameter="{Binding .}"
+                                                WidthRequest="200"
+                                                IsVisible="{Binding IsJoinButtonVisible}"
+                                                Grid.Row="0"
+                                                ZIndex="10" />
+
+                                        <Button Text="Leave Event"
+                                                BackgroundColor="Red"
+                                                Command="{Binding Source={x:Reference eventPage}, Path=BindingContext.LeaveEventCommand}"
+                                                CommandParameter="{Binding .}"
+                                                WidthRequest="200"
+                                                IsVisible="{Binding IsLeaveButtonVisible}"
+                                                Grid.Row="0"
+                                                ZIndex="10" />
+                                    </Grid>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

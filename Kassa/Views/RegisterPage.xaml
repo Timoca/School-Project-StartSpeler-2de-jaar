@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Kassa.ViewModels"
+             x:Class="Kassa.Views.RegisterPage"
+             x:DataType="viewmodels:RegisterViewModel"
+             Shell.TabBarIsVisible="False"
+             Title="RegisterPage">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="0 ,30 ,0 ,0" Spacing="10" BackgroundColor="#444BA4">
+            <StackLayout Padding="30, 0, 0, 0">
+                <Button Text="Terug"
+                        Command="{Binding GoToLoginScreenCommand}"
+                        MaximumWidthRequest="150"
+                        HorizontalOptions="Start"
+                        />
+            </StackLayout>
+                <Grid ColumnSpacing="0" HorizontalOptions="FillAndExpand">
+                    
+                <Frame BackgroundColor="#2B3078" HorizontalOptions="Center" CornerRadius="10" Grid.Column="1" WidthRequest="800">
+                    <VerticalStackLayout Spacing="15" Padding="20">
+                        <Entry Text="{Binding Voornaam}" Placeholder="Voornaam" />
+
+                        <Entry Text="{Binding Achternaam}" Placeholder="Achternaam" />
+
+                        <Entry Text="{Binding Telefoonnummer}" Placeholder="Telefoonnummer (Optioneel)" />
+
+                        <Entry Text="{Binding Email}" Placeholder="Emailadres" />
+
+                        <Entry Text="{Binding Password}" Placeholder="Wachtwoord" IsPassword="True" />
+
+                        <Entry Text="{Binding ConfirmPassword}" Placeholder="Bevestig Wachtwoord" IsPassword="True" />
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <ActivityIndicator x:Name="registerActivityIndicator"
+                       IsRunning="{Binding IsBusy}"
+                       IsVisible="{Binding IsBusy}"
+                       Grid.Row="0"
+                       Color="White"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+
+                            <Button
+                        Text="Registreer"
+                        Command="{Binding RegisterCommand}"
+                        IsEnabled="{Binding DisplayButton}"
+                        Grid.Row="1" />
+                            <Label
+                        x:Name="RegistrationStatusMessage"
+                        Text="{Binding RegistrationMessage}"
+                        TextColor="#42CA49"
+                        Margin="5"
+                        Grid.Row="2" />
+                            <Label Text="{Binding ErrorMessage}"
+                           TextColor="Red"
+                           IsVisible="{Binding RegistrationMessage.Length, Converter={StaticResource StringLengthToBoolConverter}}"
+                           Margin="5"
+                           Grid.Row="2" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

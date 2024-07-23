@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kassa.Views.ProductScreen"
+             xmlns:viewmodels="clr-namespace:Kassa.ViewModels"
+             xmlns:models="clr-namespace:Kassa.Models"
+             x:DataType="viewmodels:ProductScreenViewModel"
+             BackgroundColor="#444BA4">
+
+
+
+
+
+    <HorizontalStackLayout HorizontalOptions="Center"
+                           Margin="20">
+        <!--Start Frame 1 Region-->
+
+        <Frame BackgroundColor="#2B3078"
+               BorderColor="Transparent"
+               Margin="20,0,10,0"
+               VerticalOptions="Start">
+            <ScrollView>
+                <VerticalStackLayout>
+                    <!--Start SubTitel1 Region-->
+
+                    <HorizontalStackLayout VerticalOptions="Center"
+                                           HorizontalOptions="Center">
+                        <!--Start SubTitel1 Region-->
+                        <Label Text="Lijst Met Producten"
+                               FontSize="35"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,20" />
+                        <SearchBar Placeholder="Product"
+                                   Text="{Binding SearchText}"
+                                   Background="#444BA4"
+                                   TextColor="White"
+                                   WidthRequest="180"
+                                   Margin="10" />
+                    </HorizontalStackLayout>
+                    <Button Text="Deselecteren"
+                            Command="{Binding DeselecterenCommand}"  WidthRequest="455"/>
+
+                    <CollectionView ItemsSource="{Binding GefilterdeProducten}"
+                                    Margin="20"
+                                    SelectionMode="Single"
+                                    SelectedItem="{Binding SelectedProduct}">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Product">
+
+
+                                <StackLayout Margin="5">
+                                    <Border Stroke="#444BA4"
+                                            StrokeThickness="2"
+                                            Margin="2">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="5" />
+                                        </Border.StrokeShape>
+                                        <Grid ColumnDefinitions="*,*"
+                                              RowDefinitions="*">
+                                            <Label Text="{Binding Naam}"
+                                                   Grid.Column="0"
+                                                   Grid.Row="0"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Center"
+                                                   Margin="10" />
+
+
+
+                                        </Grid>
+                                    </Border>
+                                </StackLayout>
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!--End Rij 3 Frisdrank Region-->
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </Frame>
+
+        <!--End Frame 1 Region-->
+
+        <VerticalStackLayout>
+            <!--Start Frame 1 Region-->
+            <Frame BackgroundColor="#2B3078"
+                   BorderColor="Transparent"
+                   Margin="20,0,10,0"
+                   Grid.Column="0"
+                   IsVisible="{Binding IsVisible}">
+
+                <VerticalStackLayout WidthRequest="500">
+
+                    <!--Start SubTitel1 Region-->
+                    <Label Text="{Binding SelectedProduct.Naam}"
+                           FontSize="35"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,20" />
+
+
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="{Binding SelectedProduct.Type, StringFormat='Type: {0}'}"
+                               FontSize="15"
+                               HorizontalOptions="Start"
+                               Margin="20"
+                               FontAttributes="Bold" />
+                        
+                        <Label Text="{Binding SelectedProduct.StockAantal, StringFormat='Stock aantal: {0}'}"
+                                   FontSize="15"
+                                   HorizontalOptions="Start"
+                                   Margin="20"
+                                   FontAttributes="Bold" />
+
+                        <Label Text="{Binding SelectedProduct.Prijs, StringFormat='Prijs: €{0:F2}'}"
+                                   FontSize="15"
+                                   HorizontalOptions="Start"
+                                   Margin="20"
+                                   FontAttributes="Bold" />
+                        <Label Text="{Binding SelectedProduct.Notities, StringFormat='Notities: {0}'}"
+                               FontSize="15"
+                               HorizontalOptions="Start"
+                               Margin="20"
+                               FontAttributes="Bold" />
+
+
+                    </VerticalStackLayout>
+
+
+                    <HorizontalStackLayout HorizontalOptions="Center">
+                        <Button Text="Wijzig"
+                                BackgroundColor="#d7e231"
+                                FontAttributes="Bold"
+                                Command="{Binding UpdateProductCommand }"
+                                Margin="5" />
+
+                        <Button Text="Delete"
+                                FontAttributes="Bold"
+                                BackgroundColor="#ff0000"
+                                Margin="5"
+                                Command="{Binding DeleteProductCommand}" />
+
+                    </HorizontalStackLayout>
+
+
+                    <!--End SubTitel1 Region-->
+                    <!--Start Rij 1 Frisdrank Region-->
+
+
+
+
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+
+            <Frame BackgroundColor="#2B3078"
+                   BorderColor="Transparent"
+                   Margin="20,0,10,0"
+                   Grid.Column="0"
+                   
+                   IsVisible="{Binding NieuwProductVisible}">
+
+                <VerticalStackLayout WidthRequest="500" HeightRequest="230">
+
+                    <!--Start SubTitel1 Region-->
+                    <Label Text="Nieuw Product"
+                           FontSize="35"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,20" />
+
+
+
+
+
+
+                    <Button Text="Toevoegen"
+                            BackgroundColor="#42CA49"
+                            FontAttributes="Bold"
+                            WidthRequest="150"
+                            HorizontalOptions="Center"
+                            Command="{Binding CreateProductCommand}" />
+
+
+
+
+
+
+                    <!--End SubTitel1 Region-->
+                    <!--Start Rij 1 Frisdrank Region-->
+
+
+
+
+
+                </VerticalStackLayout>
+
+            </Frame>
+        </VerticalStackLayout>
+        <!--End Frame 1 Region-->
+    </HorizontalStackLayout>
+
+
+</ContentPage>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Companion.ViewModels"
+             x:Class="Companion.Views.RegistratiePagina"
+             x:DataType="viewmodels:RegisterViewModel"
+             Title="Registratie"
+             BackgroundColor="#3b4082"
+             Shell.NavBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <!-- Header-->
+            <Grid Padding="10" BackgroundColor="#2B3078" HeightRequest="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <!--Hamburger icon -->
+                    <ColumnDefinition Width="Auto" />
+                    <!--Logo -->
+                    <ColumnDefinition Width="*" />
+                    <!--Title -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Hamburger icon-->
+                <Image Grid.Column="0"
+                   Source="hamburger.png"
+                   HeightRequest="40"
+                   WidthRequest="40"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnHamburgerMenuTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image Grid.Column="1"
+                   Source="logo.png"
+                   HeightRequest="100"
+                   Margin="10"
+                   WidthRequest="300"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center" />
+            </Grid>
+
+            <!--Body-->
+
+            <VerticalStackLayout Padding="10">
+                <HorizontalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Margin="10">
+                    <Label
+            Text="Voornaam"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+                </HorizontalStackLayout>
+                <Entry Text="{Binding Voornaam}" BackgroundColor="#666bad" TextColor="White" MaximumWidthRequest="1000" />
+
+                <HorizontalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Margin="10">
+                    <Label
+            Text="Achternaam"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+                </HorizontalStackLayout>
+                <Entry Text="{Binding Achternaam}" BackgroundColor="#666bad" TextColor="White" MaximumWidthRequest="1000" />
+
+                <HorizontalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Margin="10">
+                    <Label
+            Text="Telefoonnummer (opioneel)"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+                </HorizontalStackLayout>
+                <Entry Text="{Binding Telefoonnummer}" BackgroundColor="#666bad" TextColor="White" MaximumWidthRequest="1000" />
+
+                <HorizontalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Margin="10">
+                    <Label
+            Text="Emailadres"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+                </HorizontalStackLayout>
+                <Entry Text="{Binding Email}" BackgroundColor="#666bad" TextColor="White" MaximumWidthRequest="1000" />
+
+                <HorizontalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Margin="10">
+                    <Label
+            Text="Wachtwoord"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+                </HorizontalStackLayout>
+                <Entry Text="{Binding Password}" BackgroundColor="#666bad" TextColor="White" IsPassword="True" MaximumWidthRequest="1000" />
+
+                <HorizontalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Margin="10">
+                    <Label
+            Text="Bevestig Wachtwoord"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+                </HorizontalStackLayout>
+                <Entry Text="{Binding ConfirmPassword}" BackgroundColor="#666bad" TextColor="White" IsPassword="True" MaximumWidthRequest="1000" />
+
+                <HorizontalStackLayout Padding="0,35,0,0" HorizontalOptions="Center">
+                    <VerticalStackLayout>
+                        <Button
+                        Text="Registreer"
+                        Command="{Binding RegisterCommand}"
+                        IsEnabled="{Binding DisplayButton}"
+                        HeightRequest="50"
+                        WidthRequest="200"
+                        BackgroundColor="#42CA49" />
+                        <Button Text="Terug naar login"
+                        BackgroundColor="Transparent"
+                        TextColor="White"
+                        BorderWidth="0"
+                        FontAttributes="Italic"
+                        Command="{Binding NavigateToLoginCommand}" />
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+                <Label
+                    x:Name="RegistrationStatusMessage"
+                    Text="{Binding RegistrationMessage}"
+                    TextColor="#42CA49"
+                    Margin="5" />
+                <Label Text="{Binding ErrorMessage}"
+                    TextColor="Red"
+                    IsVisible="{Binding RegistrationMessage.Length, Converter={StaticResource StringLengthToBoolConverter}}"
+                    Margin="5" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

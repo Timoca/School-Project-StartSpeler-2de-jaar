@@ -1,0 +1,108 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Kassa"
+             xmlns:models="clr-namespace:Kassa.Models"
+             x:Class="Kassa.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary>
+                <Style TargetType="Label">
+                    <Setter Property="TextColor" Value="White" />
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextColor" Value="White" />
+                    <Setter Property="BackgroundColor" Value="#42CA49" />
+                </Style>
+                <Style TargetType="Entry">
+                    <Setter Property="TextColor" Value="White" />
+                    <Setter Property="BackgroundColor" Value="#444BA4" />
+                    <Setter Property="PlaceholderColor" Value="LightGrey" />
+                </Style>
+                <Style TargetType="Frame">
+                    <Setter Property="BorderColor"
+                            Value="#2B3078" />
+                    <Setter Property="BackgroundColor"
+                            Value="#2B3078" />
+                </Style>
+                
+                <DataTemplate x:Key="ValidProductTemplate"
+                              x:DataType="models:Product">
+
+                    <ScrollView>
+                        <StackLayout Margin="5">
+                            <Border Stroke="#444BA4"
+                                    StrokeThickness="2"
+                                    Margin="2">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="*,*"
+                                      RowDefinitions="*">
+                                    <Label Text="{Binding Naam}"
+                                           Grid.Column="0"
+                                           Grid.Row="0"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           Margin="10" />
+                                    <HorizontalStackLayout Grid.Column="1"
+                                                           VerticalOptions="Center"
+                                                           HorizontalOptions="End">
+                                        <Label Text="{Binding Prijs}"
+                                               VerticalOptions="Center"
+                                               Grid.Column="1" />
+                                        <ImageButton Source="add_icon.png"
+                                                     HeightRequest="60"
+                                                     BackgroundColor="Transparent"
+                                                     Margin="5" />
+                                    </HorizontalStackLayout>
+
+                                </Grid>
+                            </Border>
+                        </StackLayout>
+                    </ScrollView>
+                </DataTemplate>
+                <DataTemplate x:Key="InvalidProductTemplate"
+                              x:DataType="models:Product">
+
+                    <ScrollView>
+                        <StackLayout Margin="5">
+                            <Border Stroke="#444BA4"
+                                    StrokeThickness="2"
+                                    Margin="2">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="*,*"
+                                      RowDefinitions="*">
+                                    <Label Text="{Binding Naam}"
+                                           Grid.Column="0"
+                                           Grid.Row="0"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           Margin="10" />
+                                    <HorizontalStackLayout Grid.Column="1"
+                                                           VerticalOptions="Center"
+                                                           HorizontalOptions="End">
+                                        <Label Text="{Binding Prijs}"
+                                               VerticalOptions="Center"
+                                               Grid.Column="1" />
+                                        <ImageButton Source="add_icon.png"
+                                                     HeightRequest="60"
+                                                     BackgroundColor="Transparent"
+                                                     Margin="5" />
+                                    </HorizontalStackLayout>
+
+                                </Grid>
+                            </Border>
+                        </StackLayout>
+                    </ScrollView>
+                </DataTemplate>
+            </ResourceDictionary>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

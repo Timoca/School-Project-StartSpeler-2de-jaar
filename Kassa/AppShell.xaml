@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="Kassa.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:viewmodels="clr-namespace:Kassa.ViewModels"
+       x:DataType="viewmodels:AppShellViewModel"
+       xmlns:views="clr-namespace:Kassa.Views"
+       Shell.NavBarIsVisible="True"
+       Shell.FlyoutBehavior="Disabled"
+       Shell.TabBarBackgroundColor="#2B3078"
+       Shell.BackgroundColor="#2B3078">
+    <Shell.TitleView>
+        <FlexLayout Direction="Row">
+            <Image Source="logoweb.png"
+            HeightRequest="47"
+            Margin="10, 0, 0, 0"
+            MaximumWidthRequest="200"
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            FlexLayout.Grow="1" />
+            <Button Text="Uitloggen"
+            Command="{Binding LogoutUserCommand}"
+            IsVisible="{Binding RemoveLogoutButton}"
+            MaximumWidthRequest="200"
+                    MaximumHeightRequest="35"
+            Margin="0,0,10,0"
+            HorizontalOptions="End" />
+        </FlexLayout>
+    </Shell.TitleView>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Home"
+                      ContentTemplate="{DataTemplate views:HomeScreen}"
+                      Route="HomeScreen" />
+        <ShellContent Title="Stock"
+                      ContentTemplate="{DataTemplate views:StockScreen}"
+                      Route="StockScreen" />
+        <ShellContent Title="Overzicht"
+                      ContentTemplate="{DataTemplate views:OverzichtScreen}"
+                      Route="OverzichtScreen" />
+        <ShellContent Title="Menu"
+                      ContentTemplate="{DataTemplate views:MenuScreen}"
+                      Route="MenuScreen" />
+        <ShellContent Title="Events"
+                      ContentTemplate="{DataTemplate views:EventScreen}"
+                      Route="EventScreen" />
+        <ShellContent Title="Product"
+                      ContentTemplate="{DataTemplate views:ProductScreen}"
+                      Route="ProductScreen"
+                      IsVisible="{Binding IsNotEventManager}" />
+        <ShellContent Title="Instellingen"
+                      ContentTemplate="{DataTemplate views:InstellingenScreen}"
+                      Route="InstellingenScreen"
+                      IsVisible="{Binding IsBeheerder}" />
+        <ShellContent ContentTemplate="{DataTemplate views:AfrekenenScreen}"
+                      Route="AfrekenenScreen" />
+        <ShellContent ContentTemplate="{DataTemplate views:LoginPage}"
+                      Route="LoginPage" />
+        <ShellContent ContentTemplate="{DataTemplate views:RegisterPage}"
+                      Route="RegisterPage" />
+    </FlyoutItem>
+</Shell>

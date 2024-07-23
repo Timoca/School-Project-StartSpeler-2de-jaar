@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Companion.Views.DrankPagina"
+             xmlns:model="clr-namespace:Companion.Models"
+             xmlns:vm="clr-namespace:Companion.ViewModels"
+             x:DataType="vm:DrankViewModel"
+             Title="DrankPagina"
+             BackgroundColor="#3b4082"
+             Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <!-- Grid Row Definitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header -->
+            <RowDefinition Height="*"/>
+            <!-- Main Content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Footer/Checkout Button -->
+        </Grid.RowDefinitions>
+
+        <!-- Header with logo and title -->
+        <Grid BackgroundColor="#2B3078"
+              HeightRequest="100"
+              Padding="10"
+              Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Hamburger menu icon -->
+            <Image Source="hamburger.png"
+                   HeightRequest="40"
+                   WidthRequest="40"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   Grid.Column="0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHamburgerMenuTapped"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <!-- Logo image -->
+            <Image Grid.Column="1"
+                   Source="logo.png"
+                   HeightRequest="100"
+                   WidthRequest="300"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"/>
+        </Grid>
+
+        <Label Grid.Row="1"
+               Text="Menu"
+               FontSize="Large"
+               FontAttributes="Bold"
+               TextColor="White"
+               HorizontalOptions="Center"
+               Margin="0,0,0,10" />
+
+        <!-- Main content area for the CollectionView -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Dranken}"
+                        IsGrouped="True"
+                        Margin="10">
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding Type}"
+                           FontSize="Large"
+                           HorizontalOptions="Start"
+                           Margin="10"
+                           TextColor="White" />
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame CornerRadius="10" Padding="10" BackgroundColor="#2B3078" Margin="1" HeightRequest="45" BorderColor="#444BA5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Naam}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium" TextColor="White"/>
+                            <Label Text="{Binding Prijs, StringFormat='€{0:N2}'}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="Medium" TextColor="White"/>
+                            <Button Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DrankViewModel}}, Path=BestelDrankCommand}" CommandParameter="{Binding .}" FontSize="Small" BackgroundColor="#42CA49" CornerRadius="12" HeightRequest="40" WidthRequest="35" HorizontalOptions="End" VerticalOptions="Center" Margin="5"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Checkout button at the bottom -->
+        <Button Grid.Row="2"
+                Text="Bestellen"
+                HeightRequest="50"
+                WidthRequest="200"
+                BackgroundColor="#42CA49"
+                Command="{Binding NaarWinkelmand}"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                Margin="5"/>
+    </Grid>
+</ContentPage>

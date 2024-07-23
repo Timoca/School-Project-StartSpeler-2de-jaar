@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Companion.Views.HomePagina"
+             Title="HomePagina"
+             BackgroundColor="#2B3078"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <!-- Header-->
+            <Grid Padding="10" BackgroundColor="#2B3078" HeightRequest="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <!--Hamburger icon -->
+                    <ColumnDefinition Width="Auto" />
+                    <!--Logo -->
+                    <ColumnDefinition Width="*" />
+                    <!--Title -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Hamburger icon-->
+                <Image Source="hamburger.png"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       Grid.Column="0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnHamburgerMenuTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <!-- Logo-->
+                <Image Grid.Column="1"
+                       Source="logo.png"
+                       Margin="10"
+                       HeightRequest="100"
+                       WidthRequest="300"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center" />
+            </Grid>
+            <VerticalStackLayout Spacing="0">
+                <Grid RowDefinitions="*,*">
+                    <!-- Eerste knop voor Bestellen -->
+                    <Frame  Grid.Row="0" BackgroundColor="Transparent" BorderColor="Transparent" HasShadow="False" Padding="0">
+                        <Grid Padding="0">
+                            <Image Source="drank_home.jpg" Aspect="AspectFill" />
+                            <Grid>
+                                <Label Text="Bestellen"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    TextColor="black"
+                                    Margin="5,5,0,0"
+                                    FontAttributes="Bold"
+                                    FontSize="44" />
+                                <Label Text="Bestellen"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    TextColor="White"
+                                    FontAttributes="Bold"
+                                    FontSize="44" />
+                            </Grid>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFrameTapped" />
+                            <TapGestureRecognizer Tapped="OnBestellenClicked" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                    <!-- Tweede knop voor Events Bekijken -->
+                    <Frame x:Name="myFrame" Grid.Row="1" BackgroundColor="Transparent" BorderColor="Transparent" HasShadow="False" Padding="0">
+                        <Grid Padding="0">
+                            <Image Source="bordspel.png" Aspect="AspectFill" VerticalOptions="FillAndExpand" />
+                            <Grid>
+                                <Label Text="Events Bekijken"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    TextColor="Black"
+                                    Margin="5,5,0,0"
+                                    FontAttributes="Bold"
+                                    FontSize="44" />
+                                <Label Text="Events Bekijken"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    TextColor="White"
+                                    FontAttributes="Bold"
+                                    FontSize="44" />
+                            </Grid>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFrameTapped" />
+                            <TapGestureRecognizer Tapped="OnEventsClicked" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </Grid>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
